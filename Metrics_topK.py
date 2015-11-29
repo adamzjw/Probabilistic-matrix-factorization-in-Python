@@ -4,7 +4,8 @@ def topK(model, test_vec, k=10):
 	inv_lst = np.unique(test_vec[:, 0])
 	pred = {}
 	for inv in inv_lst:
-		pred[inv] = np.argsort(model.predict(inv))[-k:]
+		if pred.get(inv, None) is None:
+			pred[inv] = np.argsort(model.predict(inv))[-k:]
 
 	intersection_cnt = {}
 	for i in range(test_vec.shape[0]):
